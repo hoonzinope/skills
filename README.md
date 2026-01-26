@@ -92,8 +92,15 @@ python3 scripts/scaffold_doc.py \
 - `docs-librarian`: 문서 정리/인덱스 → `.documents/_ops/DOCS_INDEX.md`
 - `decision-log-writer`: 의사결정 로그 → `.documents/_ops/DECISIONS.md`
 - `project-manager`: 다음 실행 스킬 추천 로그 → `.documents/_ops/PROJECT_MANAGER.md`
+  - Reads: `.documents/_ops/SKILLS_ENABLED.md`, `.documents/_ops/RUNBOOK.md`, `.documents/**`
+  - Writes: `.documents/_ops/PROJECT_MANAGER.md` only
+  - Recommend: max 3 skills, prefer S unless triggers require M/L
+  - Only enabled skills; if missing, propose fallback
 
 ## 스킬별 기본 규칙(요약)
+- **author(creator/engineer/writer)**: snapshot 갱신 + append
+- **reviewer**: append only
+- **operator(fixer/tester)**: 코드/실행 + 로그 append
 - **reviewer 계열은 본문 수정 금지, 리뷰 섹션 append만 허용**
 - **code-fixer는 AI_REVIEW.md의 Status만 변경 가능**
 - **_ops 스킬은 allowlist 파일만 작성 가능**
@@ -109,8 +116,16 @@ python3 scripts/init_skill.py <skill-name> --path .
 - 생성 후 `SKILL.md` 작성 및 리소스(`references/`, `assets/`, `scripts/`) 추가
 
 ## 문서 운영 규칙
+## ID 네이밍 규칙
+- Review: `R{round}-{nn}` (예: R1-01)
+- Plan tasks: `P{nn}` (예: P01)
+- Spec items: `S{nn}` (예: S01)
+- QA cases: `Q{nn}` (예: Q01)
+- PM questions: `PMQ{nn}` (예: PMQ01)
+
 - `.documents/`는 프로젝트 상태의 **단일 진실 소스**입니다.
 - PM 제어 문서: `.documents/_ops/SKILLS_ENABLED.md`, `.documents/_ops/RUNBOOK.md`
+- PM 제어 문서는 사람(또는 `docs-librarian`)만 수정 가능, PM은 read-only
 - 날짜 포맷은 `YYYY-MM-DD` 사용
 - 각 문서는 **상단에 Current Snapshot** 섹션을 둡니다.
 - append 섹션은 날짜/라운드 번호를 포함합니다.
@@ -122,7 +137,7 @@ python3 scripts/init_skill.py <skill-name> --path .
 ## 권장 사용 흐름
 1) `planner` → `plan-reviewer` → `spec-writer`
 2) `uiux-engineer` → `uiux-reviewer` → `copywriter`
-3) `qa-engineer` → `risk-based-tester` → `tester` → `test-author`(필요 시)
+3) `qa-engineer` → `risk-based-tester` → `test-author`(필요 시) → `tester`
 4) `code-reviewer` → `code-fixer` → `release-noter`
 
 ## 참고
