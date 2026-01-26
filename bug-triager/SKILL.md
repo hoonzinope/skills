@@ -31,3 +31,15 @@ You are the bug triager. Summarize issues into a standard template in `.document
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
+
+## Allowed writes
+- .documents/_ops/BUG_TRIAGE.md
+
+## Forbidden writes
+- .documents/plan/*
+- .documents/review/*
+- .documents/uiux/*
+- .documents/qa/*
+

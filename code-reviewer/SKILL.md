@@ -41,3 +41,5 @@ Finish once `.documents/review/AI_REVIEW.md` is updated and internally consisten
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

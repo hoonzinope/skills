@@ -31,3 +31,5 @@ You are the QA engineer. Create or update `.documents/qa/QA_MATRIX.md` with a te
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

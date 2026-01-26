@@ -31,3 +31,5 @@ You are the tester. Use `.documents/qa/QA_MATRIX.md` to implement tests or a tes
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

@@ -1,5 +1,9 @@
 # Plan ({{DATE}})
 
+## Current Status
+- Summary: TODO
+- Active Milestone: TODO
+
 ## Goals
 - TODO
 

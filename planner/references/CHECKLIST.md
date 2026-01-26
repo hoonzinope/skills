@@ -1,5 +1,9 @@
 # Checklist
 
+## Current Status
+- One-screen summary present
+- Active milestone is indicated
+
 ## Goals
 - Traceable to requirements
 

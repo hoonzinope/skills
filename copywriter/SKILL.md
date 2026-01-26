@@ -31,3 +31,5 @@ You are the copywriter. Add a copy section to `.documents/uiux/UIUX.md` with mic
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

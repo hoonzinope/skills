@@ -1,5 +1,8 @@
 # QA Matrix ({{DATE}})
 
+## Critical Path Tests
+- QNN: TODO
+
 ## Matrix
 - ID: QNN
   Scenario: TODO

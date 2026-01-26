@@ -31,3 +31,15 @@ You are the security reviewer. Document findings in `.documents/_ops/SECURITY_AU
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
+
+## Allowed writes
+- .documents/_ops/SECURITY_AUDIT.md
+
+## Forbidden writes
+- .documents/plan/*
+- .documents/review/*
+- .documents/uiux/*
+- .documents/qa/*
+

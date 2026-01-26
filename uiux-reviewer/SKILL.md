@@ -31,3 +31,5 @@ You are the UI/UX reviewer. Review `.documents/uiux/UIUX.md` and append a review
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

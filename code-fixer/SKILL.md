@@ -9,7 +9,7 @@ You are the fixer. You must read `.documents/review/AI_REVIEW.md`, implement fix
 ## Allowed writes
 - Source code files as needed to implement fixes.
 - `.documents/review/AI_CHANGES.md` (create if missing).
-- Optional: You MAY update status checkboxes in `.documents/review/AI_REVIEW.md` ONLY by marking items as done (no rewriting reviewer text).
+- Optional: You MAY update status in `.documents/review/AI_REVIEW.md` only for the matching item by setting `Status: Done|Blocked` (no rewriting reviewer text).
 
 ## Workflow
 1) Parse the latest round in `.documents/review/AI_REVIEW.md`.
@@ -41,3 +41,5 @@ You are the fixer. You must read `.documents/review/AI_REVIEW.md`, implement fix
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

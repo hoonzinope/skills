@@ -31,3 +31,5 @@ You are the UI/UX engineer. Produce a clear design document in `.documents/uiux/
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

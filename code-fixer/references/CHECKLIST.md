@@ -4,7 +4,7 @@
 - Reference the review round and scope
 
 ## Changes
-- Map each change to a review ID
+- Map each change to a Review ID
 - List files and commands run
 - Confirm outcome and remaining risk
 

@@ -1,12 +1,21 @@
 # Skills Repo
 
 이 레포는 **프로젝트의 `.documents/` 문서 운영을 자동화/표준화**하기 위한 Codex 스킬 모음입니다.
-각 스킬은 `SKILL.md`에 정의되어 있으며, 실행 시 특정 문서에 결과를 기록합니다.
+각 스킬은 `SKILL.md`에 정의되어 있으며, 실행 시 지정된 문서에만 결과를 기록합니다.
 
 ## 핵심 원칙
 - **언어/프레임워크 비의존**: 구현 방식이 아니라 *문서 산출물*에 초점을 둡니다.
-- **문서가 상태의 소스**: 실제 진행/결정/리뷰 상태는 `.documents/` 하위 문서로 관리합니다.
+- **문서가 상태의 소스**: 진행/결정/리뷰 상태는 `.documents/` 하위 문서로 관리합니다.
 - **스킬은 역할**: 리뷰/계획/UX/QA/운영 등 역할별로 분리합니다.
+- **append로 이력 관리**: 최신 상태 요약은 상단, 이력은 하단에 쌓습니다.
+
+## 가드레일 (강제 규칙)
+- **모든 write target은 `.documents/` 하위여야 함** (스크립트와 SKILL에서 강제)
+- **읽기 범위는 넓게, 쓰기 범위는 좁게** (allowlist 적용)
+- **모든 항목은 ID를 가진다** (R1-01, Q01 등)
+- **각 문서는 상단에 Current Snapshot을 가진다**
+- **append 섹션은 날짜/라운드 포함**
+- **스킬 간 핸드오프는 문서 링크/ID로만**
 
 ## 디렉터리 구조
 ```
@@ -18,7 +27,7 @@ skills/
 │   └── scripts/scaffold_doc.py
 ├── code-fixer/
 │   └── ...
-├── plan*
+├── planner/
 ├── uiux*
 ├── test*
 ├── _ops*
@@ -49,15 +58,16 @@ python3 scripts/scaffold_doc.py \
 ```
 - 템플릿 내 `{{DATE}}`, `{{TITLE}}`는 자동 치환됩니다.
 - `--append`는 기존 문서 뒤에 날짜 포함 섹션을 추가합니다.
+- 출력 경로가 `.documents/` 하위가 아니면 에러가 발생합니다.
 
 ## 스킬 목록과 산출물
 ### Coder
 - `code-reviewer`: 코드 리뷰 → `.documents/review/AI_REVIEW.md`
-- `code-fixer`: 리뷰 항목 수정 → `.documents/review/AI_CHANGES.md`
+- `code-fixer`: 리뷰 항목 수정 → `.documents/review/AI_CHANGES.md` + **AI_REVIEW.md Status 업데이트 허용**
 - `refactor-scout`: 구조 개선 후보 발굴 → `.documents/review/REFACTOR_BACKLOG.md`
 
 ### Plan
-- `planer`: 요구사항 → 계획/작업 목록 → `.documents/plan/PLAN.md`
+- `planner`: 요구사항 → 계획/작업 목록 → `.documents/plan/PLAN.md`
 - `plan-reviewer`: 계획 리뷰/질문 추가 → `.documents/plan/PLAN.md` (Review 섹션 append)
 - `spec-writer`: 계획 → 명세서 → `.documents/plan/SPEC.md`
 
@@ -68,8 +78,10 @@ python3 scripts/scaffold_doc.py \
 
 ### Test
 - `qa-engineer`: QA 매트릭스 → `.documents/qa/QA_MATRIX.md`
-- `tester`: 테스트 실행/계획 → `.documents/qa/TEST_REPORT.md`
 - `risk-based-tester`: 리스크 기반 최소 세트 → `.documents/qa/QA_MATRIX.md` (Risk 섹션 append)
+- `tester`: 테스트 실행/결과 기록 → `.documents/qa/TEST_REPORT.md`
+- `test-author` (옵션): 테스트 설계 문서 → `.documents/qa/TEST_PLAN.md`
+  - 사용 조건: 자동 테스트 코드 작성이 필요 없고, 실행 전 설계/시나리오 정리가 필요할 때
 
 ### Ops (범용 문서 운영)
 - `bug-triager`: 이슈/로그 정리 → `.documents/_ops/BUG_TRIAGE.md`
@@ -81,9 +93,10 @@ python3 scripts/scaffold_doc.py \
 - `decision-log-writer`: 의사결정 로그 → `.documents/_ops/DECISIONS.md`
 
 ## 스킬별 기본 규칙(요약)
-- **code-reviewer / refactor-scout / security-reviewer**는 코드 변경 금지
-- **code-fixer / tester**는 변경 후 반드시 변경 로그/테스트 결과 기록
-- **reviewer 계열**은 본문 수정 금지, *리뷰 섹션 추가만 허용*
+- **reviewer 계열은 본문 수정 금지, 리뷰 섹션 append만 허용**
+- **code-fixer는 AI_REVIEW.md의 Status만 변경 가능**
+- **_ops 스킬은 allowlist 파일만 작성 가능**
+- **모든 스킬은 write target이 `.documents/` 하위여야 함**
 
 각 스킬의 상세 규칙은 해당 폴더의 `SKILL.md`를 참고하세요.
 
@@ -97,14 +110,19 @@ python3 scripts/init_skill.py <skill-name> --path .
 ## 문서 운영 규칙
 - `.documents/`는 프로젝트 상태의 **단일 진실 소스**입니다.
 - 날짜 포맷은 `YYYY-MM-DD` 사용
-- 모든 문서는 템플릿을 기반으로 생성하고, 리뷰/로그는 append 형태로 관리합니다.
+- 각 문서는 **상단에 Current Snapshot** 섹션을 둡니다.
+- append 섹션은 날짜/라운드 번호를 포함합니다.
+- 리뷰/수정 루프는 상호 링크로 연결합니다:
+  - `AI_CHANGES.md`는 수정한 항목의 `R{X}-NN`과 `AI_REVIEW.md` 섹션을 링크
+  - `AI_REVIEW.md` 항목에 `Last Fix` 필드로 최신 수정 라운드를 기록
+  - 예: `AI_REVIEW.md`의 `Last Fix: AI_CHANGES.md#Round2`
 
 ## 권장 사용 흐름
-1) `planer` → `plan-reviewer` → `spec-writer`
+1) `planner` → `plan-reviewer` → `spec-writer`
 2) `uiux-engineer` → `uiux-reviewer` → `copywriter`
-3) `qa-engineer` → `risk-based-tester` → `tester`
+3) `qa-engineer` → `risk-based-tester` → `tester` → `test-author`(필요 시)
 4) `code-reviewer` → `code-fixer` → `release-noter`
 
 ## 참고
 - 모든 스킬은 **언어/프레임워크에 의존하지 않는 문서 산출**을 우선합니다.
-- 프로젝트가 커질수록 `.documents/_ops`의 가치가 커집니다.
+- `.documents/_ops`는 규모가 커질수록 가치가 커집니다.

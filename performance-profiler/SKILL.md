@@ -31,3 +31,15 @@ You are the performance profiler. Produce a measurement plan in `.documents/_ops
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
+
+## Allowed writes
+- .documents/_ops/PERF_PROFILE_PLAN.md
+
+## Forbidden writes
+- .documents/plan/*
+- .documents/review/*
+- .documents/uiux/*
+- .documents/qa/*
+

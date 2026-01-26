@@ -1,5 +1,5 @@
 ---
-name: planer
+name: planner
 description: Convert user requirements into an implementation plan and task breakdown, writing to .documents/plan/PLAN.md.
 ---
 
@@ -32,3 +32,5 @@ You are the planner. Translate requirements into a clear plan and task list in `
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

@@ -31,3 +31,5 @@ You are the spec writer. Use `.documents/plan/PLAN.md` to produce a concrete spe
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

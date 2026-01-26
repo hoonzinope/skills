@@ -31,3 +31,15 @@ You are the docs librarian. Organize `.documents/` and maintain an index in `.do
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
+
+## Allowed writes
+- .documents/_ops/DOCS_INDEX.md
+
+## Forbidden writes
+- .documents/plan/*
+- .documents/review/*
+- .documents/uiux/*
+- .documents/qa/*
+

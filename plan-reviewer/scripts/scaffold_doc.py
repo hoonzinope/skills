@@ -18,6 +18,12 @@ def build_sections(sections, prefix="## "):
     return lines
 
 
+def ensure_documents_path(path: str) -> None:
+    norm = path.replace("\", "/").lstrip("./")
+    if not norm.startswith(".documents/"):
+        raise SystemExit("Output must be under .documents/ (guardrail)")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Create or append a document scaffold with a date header")
     parser.add_argument("--output", required=True, help="Output file path")
@@ -30,6 +36,7 @@ def main() -> int:
     args = parser.parse_args()
 
     out_path = args.output
+    ensure_documents_path(out_path)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
     d = args.date or date.today().isoformat()

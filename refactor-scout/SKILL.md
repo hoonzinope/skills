@@ -37,3 +37,5 @@ You are the refactor scout. Do NOT change source code. Your only write target is
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

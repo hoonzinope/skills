@@ -31,3 +31,5 @@ You are the risk-based tester. Select a minimal, high-impact subset of tests fro
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/

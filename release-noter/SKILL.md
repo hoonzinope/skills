@@ -31,3 +31,15 @@ You are the release noter. Summarize changes into release notes in `.documents/_
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
+
+## Allowed writes
+- .documents/_ops/RELEASE_NOTES.md
+
+## Forbidden writes
+- .documents/plan/*
+- .documents/review/*
+- .documents/uiux/*
+- .documents/qa/*
+

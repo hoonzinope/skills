@@ -31,3 +31,5 @@ You are the plan reviewer. Review `.documents/plan/PLAN.md` and add a review sec
 - Reference checklist: `references/CHECKLIST.md`
 - Base template: `assets/TEMPLATE.md`
 
+## Write Guardrails
+- write target must be under .documents/
