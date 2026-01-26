@@ -91,6 +91,7 @@ python3 scripts/scaffold_doc.py \
 - `release-noter`: 릴리즈 노트 → `.documents/_ops/RELEASE_NOTES.md`
 - `docs-librarian`: 문서 정리/인덱스 → `.documents/_ops/DOCS_INDEX.md`
 - `decision-log-writer`: 의사결정 로그 → `.documents/_ops/DECISIONS.md`
+- `project-manager`: 다음 실행 스킬 추천 로그 → `.documents/_ops/PROJECT_MANAGER.md`
 
 ## 스킬별 기본 규칙(요약)
 - **reviewer 계열은 본문 수정 금지, 리뷰 섹션 append만 허용**
@@ -109,6 +110,7 @@ python3 scripts/init_skill.py <skill-name> --path .
 
 ## 문서 운영 규칙
 - `.documents/`는 프로젝트 상태의 **단일 진실 소스**입니다.
+- PM 제어 문서: `.documents/_ops/SKILLS_ENABLED.md`, `.documents/_ops/RUNBOOK.md`
 - 날짜 포맷은 `YYYY-MM-DD` 사용
 - 각 문서는 **상단에 Current Snapshot** 섹션을 둡니다.
 - append 섹션은 날짜/라운드 번호를 포함합니다.
