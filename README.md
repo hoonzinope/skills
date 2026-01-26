@@ -1,58 +1,110 @@
-스킬 구성
+# Skills Repo
 
-프로젝트 폴더의 .documents 폴더를 구성 각 요소별 하위폴더/*.md 파일을 토대로 상태를 관리
+이 레포는 **프로젝트의 `.documents/` 문서 운영을 자동화/표준화**하기 위한 Codex 스킬 모음입니다.
+각 스킬은 `SKILL.md`에 정의되어 있으며, 실행 시 특정 문서에 결과를 기록합니다.
 
-coder
-1. code-reviewer(현재존재) : 코드를 리뷰해서 성능이나 버그, 보안 부족한점을 리뷰 
-2. code-fixer(현재존재) : 리뷰된 내용을 토대로 코드를 수정
-3. refactor-scout (선택): “버그/성능이 아니라 구조 개선 후보만 발굴해서 backlog에 적기”
+## 핵심 원칙
+- **언어/프레임워크 비의존**: 구현 방식이 아니라 *문서 산출물*에 초점을 둡니다.
+- **문서가 상태의 소스**: 실제 진행/결정/리뷰 상태는 `.documents/` 하위 문서로 관리합니다.
+- **스킬은 역할**: 리뷰/계획/UX/QA/운영 등 역할별로 분리합니다.
 
-- .documents/review/AI_REVIEW.md, AI_CHANGES.md 로 리뷰내용, 변경내역을 관리
+## 디렉터리 구조
+```
+skills/
+├── code-reviewer/
+│   ├── SKILL.md
+│   ├── references/CHECKLIST.md
+│   ├── assets/TEMPLATE.md
+│   └── scripts/scaffold_doc.py
+├── code-fixer/
+│   └── ...
+├── plan*
+├── uiux*
+├── test*
+├── _ops*
+└── scripts/
+    └── init_skill.py
+```
 
-plan
-1. planer : 사용자 요구사항(요구사항문서)에 따라 구현 내용을 plan&task로 구성
-2. plan-reviewer : plan 문서를 리뷰해서 부족한 부분을 사용자에게 물어보고 추가적으로 채워넣는 역할
-3. spec-writer: plan을 “명세(입출력/에러/데이터/경계)”로 내리는 역할
+## 공통 리소스
+각 스킬 디렉터리에는 아래 리소스를 포함합니다.
+- `references/CHECKLIST.md`: 섹션별 체크리스트(검토 기준)
+- `assets/TEMPLATE.md`: 문서 템플릿(섹션/필드 정의)
+- `scripts/scaffold_doc.py`: 문서 스캐폴딩 생성
 
-- .documents/plan/PLAN.md
+### 문서 스캐폴딩 사용법
+```bash
+# 템플릿 기반 생성
+python3 scripts/scaffold_doc.py \
+  --output .documents/plan/PLAN.md \
+  --title "Plan" \
+  --template assets/TEMPLATE.md
 
-uiux
-1. uiux-engineer : 웹/앱등의 ui/ux 설계 문서를 작성
-2. uiux-reviewer : 작성된 ui/ux 설계문서를 꼼꼼히 리뷰 및 재검토
-3. copywriter (의외로 효율 큼): 버튼/에러메시지/토스트/빈상태 문구를 톤&매너 맞춰 정리
+# 기존 문서 하단에 섹션 추가
+python3 scripts/scaffold_doc.py \
+  --output .documents/plan/PLAN.md \
+  --title "Plan Review" \
+  --template assets/TEMPLATE.md \
+  --append
+```
+- 템플릿 내 `{{DATE}}`, `{{TITLE}}`는 자동 치환됩니다.
+- `--append`는 기존 문서 뒤에 날짜 포함 섹션을 추가합니다.
 
-- .documents/uiux/UIUX.md
+## 스킬 목록과 산출물
+### Coder
+- `code-reviewer`: 코드 리뷰 → `.documents/review/AI_REVIEW.md`
+- `code-fixer`: 리뷰 항목 수정 → `.documents/review/AI_CHANGES.md`
+- `refactor-scout`: 구조 개선 후보 발굴 → `.documents/review/REFACTOR_BACKLOG.md`
 
-test
-1. qa-engineer : 구성된 코드를 qa 단위로 나눈 뒤 문서로 구성
-2. tester : 구성된 qa matrix 문서를 토대로 테스트 코드 작성 혹은 테스트 빌드
-3. risk-based-tester: “QA matrix에서 우선순위/리스크 기반으로 최소 핵심 세트 뽑기”
+### Plan
+- `planer`: 요구사항 → 계획/작업 목록 → `.documents/plan/PLAN.md`
+- `plan-reviewer`: 계획 리뷰/질문 추가 → `.documents/plan/PLAN.md` (Review 섹션 append)
+- `spec-writer`: 계획 → 명세서 → `.documents/plan/SPEC.md`
 
-- .documents/qa/QA_MATRIX.md
+### UI/UX
+- `uiux-engineer`: UX 설계 문서 → `.documents/uiux/UIUX.md`
+- `uiux-reviewer`: UX 리뷰 → `.documents/uiux/UIUX.md` (Review 섹션 append)
+- `copywriter`: UI 카피 작성 → `.documents/uiux/UIUX.md` (Copy 섹션 append)
 
-범용 코드 skills
-1. bug-triager : 이슈/로그/스택트레이스/재현정보를 표준 템플릿으로 정리
-- “원인 가설 3개 + 확인 방법 + 우선순위” 같은 형태
-2. dependency-auditor : 의존성 업데이트/라이선스/취약점/사용되지 않는 의존성 정리(문서로)
-- 실제 수정은 fixer가 하게 분리
-3. performance-profiler : “측정 계획(어디를, 무엇으로, 어떤 지표로)” 문서화
-- 성능은 ‘감’으로 고치면 망하니까, 이 스킬이 범용성이 큼
-4. security-reviewer (code-reviewer에서 분리 권장) : 인증/인가/비밀관리/입력검증/로그 민감정보 같은 체크리스트 기반
-- 보안은 범주가 달라서 따로 떼면 품질이 좋아짐
-5. release-noter : 변경내역/릴리즈노트/마이그레이션 가이드 작성
-- 프로젝트가 커질수록 진짜 편해짐
-6. docs-librarian : .documents/ 문서들 정리(중복 제거, 링크, 목차, “최신이 뭔지” 표시)
-- 스킬이 많아질수록 문서가 곧 복잡도가 되기 때문에 필요해짐
+### Test
+- `qa-engineer`: QA 매트릭스 → `.documents/qa/QA_MATRIX.md`
+- `tester`: 테스트 실행/계획 → `.documents/qa/TEST_REPORT.md`
+- `risk-based-tester`: 리스크 기반 최소 세트 → `.documents/qa/QA_MATRIX.md` (Risk 섹션 append)
 
-* 범용(지원 루프) 문서 전용 폴더 하나 추가:
-.documents/_ops/
-- BUG_TRIAGE.md
-- DEPENDENCY_AUDIT.md
-- PERF_PROFILE_PLAN.md
-- SECURITY_AUDIT.md
-- RELEASE_NOTES.md
-- DOCS_INDEX.md (docs-librarian이 유지)
+### Ops (범용 문서 운영)
+- `bug-triager`: 이슈/로그 정리 → `.documents/_ops/BUG_TRIAGE.md`
+- `dependency-auditor`: 의존성 점검 → `.documents/_ops/DEPENDENCY_AUDIT.md`
+- `performance-profiler`: 측정 계획 → `.documents/_ops/PERF_PROFILE_PLAN.md`
+- `security-reviewer`: 보안 리뷰 → `.documents/_ops/SECURITY_AUDIT.md`
+- `release-noter`: 릴리즈 노트 → `.documents/_ops/RELEASE_NOTES.md`
+- `docs-librarian`: 문서 정리/인덱스 → `.documents/_ops/DOCS_INDEX.md`
+- `decision-log-writer`: 의사결정 로그 → `.documents/_ops/DECISIONS.md`
 
-decision-log-writer: 중요한 선택(트레이드오프/대안/결정/근거)을 기록
-→ .document/_ops/DECISIONS.md
-나중에 “왜 이렇게 했지?”가 제일 비용 큰 문제라서, 범용 스킬로 의외로 가치 큼.
+## 스킬별 기본 규칙(요약)
+- **code-reviewer / refactor-scout / security-reviewer**는 코드 변경 금지
+- **code-fixer / tester**는 변경 후 반드시 변경 로그/테스트 결과 기록
+- **reviewer 계열**은 본문 수정 금지, *리뷰 섹션 추가만 허용*
+
+각 스킬의 상세 규칙은 해당 폴더의 `SKILL.md`를 참고하세요.
+
+## 새 스킬 추가
+```bash
+python3 scripts/init_skill.py <skill-name> --path .
+```
+- 이름은 소문자/숫자/하이픈만 허용
+- 생성 후 `SKILL.md` 작성 및 리소스(`references/`, `assets/`, `scripts/`) 추가
+
+## 문서 운영 규칙
+- `.documents/`는 프로젝트 상태의 **단일 진실 소스**입니다.
+- 날짜 포맷은 `YYYY-MM-DD` 사용
+- 모든 문서는 템플릿을 기반으로 생성하고, 리뷰/로그는 append 형태로 관리합니다.
+
+## 권장 사용 흐름
+1) `planer` → `plan-reviewer` → `spec-writer`
+2) `uiux-engineer` → `uiux-reviewer` → `copywriter`
+3) `qa-engineer` → `risk-based-tester` → `tester`
+4) `code-reviewer` → `code-fixer` → `release-noter`
+
+## 참고
+- 모든 스킬은 **언어/프레임워크에 의존하지 않는 문서 산출**을 우선합니다.
+- 프로젝트가 커질수록 `.documents/_ops`의 가치가 커집니다.
