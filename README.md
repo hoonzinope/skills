@@ -61,6 +61,9 @@ python3 scripts/scaffold_doc.py \
 - 출력 경로가 `.documents/` 하위가 아니면 에러가 발생합니다.
 
 ## 스킬 목록과 산출물
+### Game (experimental)
+- `game-skill/` 하위에 게임 디자인/밸런싱/인크리멘탈 검증 스킬 모음 (개인용)
+
 ### Coder
 - `code-reviewer`: 코드 리뷰 → `.documents/review/AI_REVIEW.md`
 - `code-fixer`: 리뷰 항목 수정 → `.documents/review/AI_CHANGES.md` + **AI_REVIEW.md Status 업데이트 허용**
