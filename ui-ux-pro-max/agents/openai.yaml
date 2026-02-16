@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI UX Pro Max"
+  short_description: "Generate design systems and stack-specific UI/UX guidance"
+  default_prompt: "Use $ui-ux-pro-max to derive a design system and implementable UI/UX recommendations before coding."

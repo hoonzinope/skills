@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conductor"
+  short_description: "Run Conductor setup, tracks, implementation, review, and revert workflows"
+  default_prompt: "Use $conductor to manage this work with spec/plan-driven tracks and Conductor protocol checks."
