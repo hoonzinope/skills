@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execution Quality Gate"
+  short_description: "Plan, implement, and release with strict quality gates"
+  default_prompt: "Use $execution-quality-gate to deliver this change with explicit plan, risk, refactor, and final go/no-go gates."
