@@ -19,7 +19,9 @@ def build_sections(sections, prefix="## "):
 
 
 def ensure_documents_path(path: str) -> None:
-    norm = path.replace("\", "/").lstrip("./")
+    norm = path.replace("\\", "/")
+    if norm.startswith("./"):
+        norm = norm[2:]
     if not norm.startswith(".documents/"):
         raise SystemExit("Output must be under .documents/ (guardrail)")
 
@@ -46,15 +48,13 @@ def main() -> int:
             raise SystemExit(f"Template not found: {args.template}")
         with open(args.template, "r", encoding="utf-8") as f:
             tpl = f.read()
-        rendered = render_template(tpl, args.title, d).rstrip() + "
-"
+        rendered = render_template(tpl, args.title, d).rstrip() + "\n"
 
         if args.append:
             if not os.path.exists(out_path):
                 raise SystemExit(f"File does not exist for append: {out_path}")
             with open(out_path, "a", encoding="utf-8") as f:
-                f.write("
-" + rendered)
+                f.write("\n" + rendered)
             return 0
 
         if os.path.exists(out_path) and not args.force:
@@ -75,9 +75,7 @@ def main() -> int:
         lines = ["", f"## {args.title} ({d})", ""]
         lines.extend(build_sections(sections, prefix="### "))
         with open(out_path, "a", encoding="utf-8") as f:
-            f.write("
-".join(lines).rstrip() + "
-")
+            f.write("\n".join(lines).rstrip() + "\n")
         return 0
 
     if os.path.exists(out_path) and not args.force:
@@ -87,9 +85,7 @@ def main() -> int:
     lines.extend(build_sections(sections, prefix="## "))
 
     with open(out_path, "w", encoding="utf-8") as f:
-        f.write("
-".join(lines).rstrip() + "
-")
+        f.write("\n".join(lines).rstrip() + "\n")
 
     return 0
 

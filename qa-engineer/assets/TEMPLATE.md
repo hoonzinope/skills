@@ -1,13 +1,7 @@
-# QA Matrix ({{DATE}})
+# Test Report ({{DATE}})
 
-## Critical Path Tests
-- QNN: TODO
-
-## Matrix
+## Results
 - ID: QNN
-  Scenario: TODO
-  Preconditions: TODO
-  Steps: TODO
-  Expected Result: TODO
-  Priority: High|Medium|Low
-  Type: Manual|Automated
+  Status: Pass|Fail|Blocked
+  Notes: TODO
+  Evidence: TODO
